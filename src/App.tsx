@@ -103,6 +103,8 @@ function App() {
                 </Accordion>
                 <Accordion title="Form typescript">
                   <Paragraph>Make sure your FieldNames are type-safe and matching the api by coding your form like this:</Paragraph>
+                  <pre>{`<Scaffold formDefinition={formDefinition} />`}</pre>
+                  <Paragraph>Or, if you want to have a more fine grained control over your layout, you can code it like this:</Paragraph>
                   <pre>{ formDefinition && formDefinitionToTs(formDefinition) }</pre>
                 </Accordion>
                 <Accordion title="Scaffolded form">
