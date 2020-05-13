@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a48fba6c0701955f88a3f51b4db048d0",
+    "revision": "e8e7ede33e0cc50bd3545384081238cc",
     "url": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/index.html"
   },
   {
-    "revision": "406d59776f2b59c1e05d",
+    "revision": "652a7bfb4f1175833af1",
     "url": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/css/main.5f361e03.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/2.c9678880.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "406d59776f2b59c1e05d",
-    "url": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/main.f68b3c00.chunk.js"
+    "revision": "652a7bfb4f1175833af1",
+    "url": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/main.a6043a86.chunk.js"
   },
   {
     "revision": "4c4f43d41a35a8c7097a",
