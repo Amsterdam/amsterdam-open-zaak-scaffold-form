@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/precache-manifest.11beda0e56817d307b14862a712cc84a.js"
+  "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/precache-manifest.5fa7997ea6513c208a468364e7cec241.js"
 );
 
 self.addEventListener('message', (event) => {
