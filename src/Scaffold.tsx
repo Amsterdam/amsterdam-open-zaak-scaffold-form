@@ -1,8 +1,10 @@
 import React from "react";
-import {BooleanField, CheckboxFields, NumberField, SelectField, TextField} from "amsterdam-react-final-form"
+import {BooleanField, NumberField, SelectField, TextField} from "amsterdam-react-final-form"
 import styled from 'styled-components'
 
 import {arrayToObject} from "./utils/arrayToObject";
+import {themeColor, themeSpacing} from "@datapunt/asc-ui";
+import {humanize} from "./utils/humanize";
 
 type Props = {
   prefix?:string
@@ -15,6 +17,11 @@ const Fieldset = styled.fieldset`
   margin: 20px 0;  
 `
 
+const Legend = styled.legend`
+  color: ${themeColor('tint', 'level4')};
+  font-size: ${themeSpacing(3)}
+`
+
 export const Scaffold:React.FC<Props> = ({ prefix = "", schema }) => {
   // @ts-ignore
   const fields = Object.entries(schema?.properties ?? {})
@@ -24,6 +31,7 @@ export const Scaffold:React.FC<Props> = ({ prefix = "", schema }) => {
   }
 
   return <Fieldset>
+    <Legend>{ humanize(prefix) } ({ schema.type }) </Legend>
     { fields.map(([key, val]:any) => {
 
       const name = `${prefix}${key}`;
