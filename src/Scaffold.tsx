@@ -1,5 +1,5 @@
 import React from "react";
-import {CheckboxFields, NumberField, SelectField, TextField} from "amsterdam-react-final-form"
+import {BooleanField, CheckboxFields, NumberField, SelectField, TextField} from "amsterdam-react-final-form"
 import styled from 'styled-components'
 
 import {arrayToObject} from "./utils/arrayToObject";
@@ -11,7 +11,8 @@ type Props = {
 
 const Fieldset = styled.fieldset`
   border: 1px solid #eee;
-  padding: 0 30px 30px 30px;  
+  padding: 0 30px 16px 30px;
+  margin: 20px 0;  
 `
 
 export const Scaffold:React.FC<Props> = ({ prefix = "", schema }) => {
@@ -36,11 +37,10 @@ export const Scaffold:React.FC<Props> = ({ prefix = "", schema }) => {
             hint={val.description}
           />;
         case "boolean":
-          return <CheckboxFields
+          return <BooleanField
             key={name}
             name={name}
             label={val.title}
-            options={{ 1: 'true' }}
             hint={val.description}
           />;
         case "object":
