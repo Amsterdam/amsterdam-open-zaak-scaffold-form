@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/css/main.5f361e03.chunk.css",
-    "main.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/main.fbcc85ef.chunk.js",
-    "main.js.map": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/main.fbcc85ef.chunk.js.map",
+    "main.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/main.f68b3c00.chunk.js",
+    "main.js.map": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/main.f68b3c00.chunk.js.map",
     "runtime-main.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/runtime-main.4c385106.js",
     "runtime-main.js.map": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/runtime-main.4c385106.js.map",
-    "static/js/2.706d28ab.chunk.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/2.706d28ab.chunk.js",
-    "static/js/2.706d28ab.chunk.js.map": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/2.706d28ab.chunk.js.map",
+    "static/js/2.c9678880.chunk.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/2.c9678880.chunk.js",
+    "static/js/2.c9678880.chunk.js.map": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/2.c9678880.chunk.js.map",
     "index.html": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/index.html",
-    "precache-manifest.d539b7444e7f291ae55092d01147134f.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/precache-manifest.d539b7444e7f291ae55092d01147134f.js",
+    "precache-manifest.07828165fa3927fb3d528a037db6919b.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/precache-manifest.07828165fa3927fb3d528a037db6919b.js",
     "service-worker.js": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/service-worker.js",
     "static/css/main.5f361e03.chunk.css.map": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/css/main.5f361e03.chunk.css.map",
-    "static/js/2.706d28ab.chunk.js.LICENSE.txt": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/2.706d28ab.chunk.js.LICENSE.txt",
+    "static/js/2.c9678880.chunk.js.LICENSE.txt": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/js/2.c9678880.chunk.js.LICENSE.txt",
     "static/media/ChevronDown.svg": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/media/ChevronDown.374ec483.svg",
     "static/media/LogoShort.svg": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/media/LogoShort.483cfb75.svg",
     "static/media/LogoTall.svg": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/static/media/LogoTall.72129afb.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.4c385106.js",
-    "static/js/2.706d28ab.chunk.js",
+    "static/js/2.c9678880.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.fbcc85ef.chunk.js"
+    "static/js/main.f68b3c00.chunk.js"
   ]
 }
