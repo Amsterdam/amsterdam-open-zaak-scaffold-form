@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5f361e03.chunk.css",
+    "main.js": "/static/js/main.1b5658d1.chunk.js",
+    "main.js.map": "/static/js/main.1b5658d1.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cf8e4e4e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cf8e4e4e.js.map",
+    "static/js/2.853d7e8e.chunk.js": "/static/js/2.853d7e8e.chunk.js",
+    "static/js/2.853d7e8e.chunk.js.map": "/static/js/2.853d7e8e.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.49b51505d1d80a61b2080418e856ff9c.js": "/precache-manifest.49b51505d1d80a61b2080418e856ff9c.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.853d7e8e.chunk.js.LICENSE.txt": "/static/js/2.853d7e8e.chunk.js.LICENSE.txt",
+    "static/media/ChevronDown.svg": "/static/media/ChevronDown.374ec483.svg",
+    "static/media/LogoShort.svg": "/static/media/LogoShort.483cfb75.svg",
+    "static/media/LogoTall.svg": "/static/media/LogoTall.72129afb.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cf8e4e4e.js",
+    "static/js/2.853d7e8e.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.1b5658d1.chunk.js"
+  ]
+}
