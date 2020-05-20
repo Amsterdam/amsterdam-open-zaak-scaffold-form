@@ -1,3 +1,4 @@
+import fetch from "isomorphic-fetch"
 import $RefParser from "@apidevtools/json-schema-ref-parser";
 import {OpenAPIObject} from "openapi3-ts";
 
