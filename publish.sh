@@ -2,7 +2,7 @@
 
 npm version patch
 
-npm run publish
+npm run build:publish
 git add --all
 git commit -m "chore: ran npm publish"
 
