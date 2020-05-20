@@ -9,9 +9,10 @@ import {ThemeProvider, AccordionWrapper, Accordion, Spinner, Paragraph} from "@d
 
 import './App.css';
 import {arrayToObject} from "./utils/arrayToObject";
-import {equalColumns, parseSchemaObjectToFormDefinition} from "./utils/parseSchemaObjectToFormDefinition";
+import {equalColumns} from "./utils/parseSchemaObjectToFormDefinition";
 import {getSchemaObjects} from "./utils/getSchemaObjects";
-import {columnPositioner, position} from "./utils/positioners";
+import {columnPositioner} from "./utils/positioners";
+import {parseOpenApiSchema} from "./utils/parseOpenApiSchema";
 
 const fetchSchema = async (url:string) => {
   const headers = new Headers();
@@ -66,19 +67,12 @@ function App() {
 
   const schemaObjects = result ? getSchemaObjects(result) : {}
   const schemaOptions = arrayToObject(Object.keys(schemaObjects))
-
   const openAPISchema = schemaObjects[schema]
 
-  const formDefinition = position(
-    position(
-      parseSchemaObjectToFormDefinition(openAPISchema),
-      "laptop",
-      columnPositioner(numColumns)
-    ),
-    "mobileS",
-    columnPositioner(1)
-  )
-
+  const formDefinition = parseOpenApiSchema(openAPISchema, {
+    mobileS: columnPositioner(1),
+    laptop: columnPositioner(numColumns)
+  })
 
   return <ThemeProvider>
     { isFetching && <StyledSpinner size={20} /> }
@@ -91,6 +85,7 @@ function App() {
           setAPI(e.target.value);
           setSchema(undefined);
           setResult(undefined);
+          setNumColumns(1);
         }}
       />
     </Div>

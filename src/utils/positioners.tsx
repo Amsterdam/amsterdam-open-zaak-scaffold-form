@@ -1,7 +1,7 @@
 import {FormGridCellDimensions, ScaffoldFieldsType} from "amsterdam-react-final-form";
 import produce from "immer";
 
-type BreakPoint = "mobileS" | "mobileM" | "mobileL" | "tabletS" | "tabletM" | "laptop" | "laptopM" | "laptopL" | "desktop" | "desktopL";
+export type BreakPoint = "mobileS" | "mobileM" | "mobileL" | "tabletS" | "tabletM" | "laptop" | "laptopM" | "laptopL" | "desktop" | "desktopL";
 
 export type Positioner = (
   index:number
@@ -21,10 +21,16 @@ export const horizontalPositioner:Positioner = (
   row: 0
 })
 
-export const position = (fields:ScaffoldFieldsType, breakPoint:BreakPoint, positioner:Positioner) =>
+export const position = (fields:ScaffoldFieldsType, positions:{[key in BreakPoint]?: Positioner}) =>
   Object
     .entries(fields)
     .reduce(produce((draft, [key, val], index) => {
-      val.props.position[breakPoint] = positioner(index)
+
+      Object
+        .entries(positions)
+        .forEach(([breakPoint, positioner]) => {
+          val.props.position[breakPoint] = positioner!(index)
+        })
+
       draft[key] = val;
     }), {})
