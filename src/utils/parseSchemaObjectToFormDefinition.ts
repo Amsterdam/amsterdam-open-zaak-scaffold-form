@@ -2,7 +2,8 @@ import { SchemaObject } from "openapi3-ts/src/model/OpenApi"
 import { ScaffoldFieldsType } from "amsterdam-react-final-form"
 import {arrayToObject} from "./arrayToObject";
 import {humanize, humanizeOptions} from "./humanize";
-import {horizontalPositioner, position} from "./positioners";
+import {horizontalPositioner} from "./positioners";
+import {parseOpenApiSchema} from "./parseOpenApiSchema";
 
 export const generateStandardFields = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
   position: {},
@@ -73,11 +74,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
           ? property.items!
           : { properties: { "": property.items! } }
 
-        const scaffoldFields = position(
-          parseSchemaObjectToFormDefinition(items),
-          "mobileS",
-          horizontalPositioner
-        )
+        const scaffoldFields = parseOpenApiSchema(items, { "mobileS": horizontalPositioner } )
 
         acc[key] = {
           type: "ArrayField",
