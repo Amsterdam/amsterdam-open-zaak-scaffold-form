@@ -1,22 +1,11 @@
 import { SchemaObject } from "openapi3-ts/src/model/OpenApi"
-import { ScaffoldFieldsType, FormGridCellDimensions } from "amsterdam-react-final-form"
-import {Responsive} from "amsterdam-react-final-form/components/layout/responsiveProps";
+import { ScaffoldFieldsType } from "amsterdam-react-final-form"
 import {arrayToObject} from "./arrayToObject";
 import {humanize, humanizeOptions} from "./humanize";
-
-export const columnPositioner = (
-  numColumns: number,
-  start:number = 0,
-  positionObject:Responsive<FormGridCellDimensions> = {}
-): Responsive<FormGridCellDimensions> => ({
-  ...positionObject,
-  mobileS: {
-    column: start % numColumns,
-    row: Math.floor(start / numColumns)
-  }
-})
+import {horizontalPositioner, position} from "./positioners";
 
 export const generateStandardFields = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
+  position: {},
   name: prefix+propertyName,
   hint: schemaObject.description,
   label: schemaObject.title ?? humanize(propertyName)
@@ -33,14 +22,13 @@ export const equalColumns = (num:number, buttonGutter:boolean) => {
   return fractions.join(" ");
 }
 
-export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, numColumns:number = 1, prefix:string = "", indexOffset:number = 0):ScaffoldFieldsType => {
-
-  const properties = schemaObject?.properties ?? {} as SchemaObject
+export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, prefix:string = "", indexOffset:number = 0):ScaffoldFieldsType => {
 
   const parseField = (acc:ScaffoldFieldsType, key:string, propertyName:string, property:SchemaObject, index:number) => {
+
     switch(property.type) {
       case "object":
-        const object = parseSchemaObjectToFormDefinition(property, numColumns, propertyName+ ".", index + indexOffset)
+        const object = parseSchemaObjectToFormDefinition(property, propertyName+ ".", index + indexOffset)
         indexOffset += Object.keys(object).length
         acc = { ...acc, ...object }
         break;
@@ -49,7 +37,6 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, num
           acc[key] = {
             type: "SelectField",
             props: {
-              position: columnPositioner(numColumns, index + indexOffset),
               options: humanizeOptions(arrayToObject(property.enum)),
               ...generateStandardFields(prefix, propertyName, property)
             }
@@ -58,9 +45,16 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, num
           acc[key] = {
             type: "TextField",
             props: {
-              position: columnPositioner(numColumns, index + indexOffset),
               ...generateStandardFields(prefix, propertyName, property)
             }
+          }
+        }
+        break;
+      case "boolean":
+        acc[key] = {
+          type: "Boolean",
+          props: {
+            ...generateStandardFields(prefix, propertyName, property)
           }
         }
         break;
@@ -69,41 +63,42 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, num
         acc[key] = {
           type: "NumberField",
           props: {
-            position: columnPositioner(numColumns, index + indexOffset),
             ...generateStandardFields(prefix, propertyName, property)
           }
         }
         break;
       case "array":
 
-        const numColumnsInArrayField = ((property?.items as SchemaObject)?.type === "object")
-          ? Object.keys((property?.items as SchemaObject)?.properties ?? {}).length
-          : 1
-
         const items = ((property?.items as SchemaObject)?.type === "object")
           ? property.items!
-          : { properties: { ['']: property.items! } }
+          : { properties: { "": property.items! } }
+
+        const scaffoldFields = position(
+          parseSchemaObjectToFormDefinition(items),
+          "mobileS",
+          horizontalPositioner
+        )
 
         acc[key] = {
           type: "ArrayField",
           props: {
-            position: columnPositioner(numColumns, index + indexOffset),
-            scaffoldFields: parseSchemaObjectToFormDefinition(items, numColumnsInArrayField),
+            scaffoldFields,
             allowAdd: true,
             allowRemove: true,
-            columns: equalColumns(numColumnsInArrayField, true),
+            columns: equalColumns(Object.keys(scaffoldFields).length, true),
             ...generateStandardFields(prefix, propertyName, property),
           }
         }
+
         break;
       default:
-
-        // console.log(property.type, property)
+        console.warn("Unknown type", property.type)
         break;
     }
     return acc;
   }
 
+  const properties = schemaObject?.properties ?? {} as SchemaObject
 
   return Object
     .entries(properties)
@@ -111,13 +106,18 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, num
       const key = generateFormDefinitionKey(prefix, propertyName)
 
       if (property.allOf) {
-
         return property
           .allOf
           .reduce((acc:ScaffoldFieldsType, property:SchemaObject) => parseField(acc, key, propertyName, property, index), acc)
 
       } else if(property.oneOf) {
         console.warn("property.oneOf detected! We haven't implemented that yet!")
+
+        // TODO don't think this is the ideal situation.
+        return property
+          .oneOf
+          .reduce((acc:ScaffoldFieldsType, property:SchemaObject) => parseField(acc, key, propertyName, property, index), acc)
+
       } else {
         return parseField(acc, key, propertyName, property, index)
       }

@@ -9,8 +9,9 @@ import {ThemeProvider, AccordionWrapper, Accordion, Spinner, Paragraph} from "@d
 
 import './App.css';
 import {arrayToObject} from "./utils/arrayToObject";
-import {parseSchemaObjectToFormDefinition} from "./utils/parseSchemaObjectToFormDefinition";
+import {equalColumns, parseSchemaObjectToFormDefinition} from "./utils/parseSchemaObjectToFormDefinition";
 import {getSchemaObjects} from "./utils/getSchemaObjects";
+import {columnPositioner, position} from "./utils/positioners";
 
 const fetchSchema = async (url:string) => {
   const headers = new Headers();
@@ -47,6 +48,7 @@ function App() {
   const [api, setAPI] = useState<string|undefined>(undefined)
   const [schema, setSchema] = useState<any>(undefined)
   const [result, setResult] = useState<any>(undefined)
+  const [numColumns, setNumColumns] = useState(1)
 
   useEffect(() => {
     if (api) {
@@ -66,7 +68,17 @@ function App() {
   const schemaOptions = arrayToObject(Object.keys(schemaObjects))
 
   const openAPISchema = schemaObjects[schema]
-  const formDefinition = parseSchemaObjectToFormDefinition(openAPISchema, 1)
+
+  const formDefinition = position(
+    position(
+      parseSchemaObjectToFormDefinition(openAPISchema),
+      "laptop",
+      columnPositioner(numColumns)
+    ),
+    "mobileS",
+    columnPositioner(1)
+  )
+
 
   return <ThemeProvider>
     { isFetching && <StyledSpinner size={20} /> }
@@ -83,14 +95,24 @@ function App() {
       />
     </Div>
     { result && (
-      <Div>
-        <UnboundSelectField
-          label='Schema'
-          options={schemaOptions}
-          withEmptyOption={true}
-          onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setSchema(e.target.value)}
-        />
-      </Div>
+      <>
+        <Div>
+          <UnboundSelectField
+            label='Schema'
+            options={schemaOptions}
+            withEmptyOption={true}
+            onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setSchema(e.target.value)}
+          />
+        </Div>
+        <Div>
+          <UnboundSelectField
+          label='Number of columns'
+          hint="Breakpoint is hardcoded on 'laptop' in this demo. But you can set them as you like."
+          options={arrayToObject(['1','2','3','4','5','6','7','8','9','10'])}
+          onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setNumColumns(parseInt(e.target.value))}
+          />
+        </Div>
+      </>
     ) }
     { schema && (
       <Form
@@ -115,7 +137,7 @@ function App() {
                 {/*  <pre>{ formDefinition && formDefinitionToTs(formDefinition) }</pre>*/}
                 {/*</Accordion>*/}
                 <Accordion title="Scaffolded form">
-                  <Scaffold fields={formDefinition} />
+                  <Scaffold fields={formDefinition} columns={{ laptop: equalColumns(numColumns, false) }} />
                 </Accordion>
                 <Accordion title="Form values">
                   <pre>{JSON.stringify(values, null, 2)}</pre>
