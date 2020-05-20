@@ -1,4 +1,4 @@
-import {OpenAPIObject, SchemaObject} from "openapi3-ts"
+import {SchemaObject} from "openapi3-ts"
 import {BreakPoint, position, Positioner} from "./positioners"
 import {parseSchemaObjectToFormDefinition} from "./parseSchemaObjectToFormDefinition";
 

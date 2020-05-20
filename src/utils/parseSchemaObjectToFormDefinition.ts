@@ -31,7 +31,14 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
       case "object":
         const object = parseSchemaObjectToFormDefinition(property, propertyName+ ".", index + indexOffset)
         indexOffset += Object.keys(object).length
-        acc = { ...acc, ...object }
+
+        Object
+          .entries(object)
+          .forEach(([key, val]) => {
+            acc[key] = val;
+          })
+
+//        acc = { ...acc, ...object }
         break;
       case "string":
         if (property.enum) {
