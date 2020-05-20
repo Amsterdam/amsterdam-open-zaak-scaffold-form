@@ -4,7 +4,6 @@ import arrayMutators from 'final-form-arrays';
 import {UnboundSelectField, Scaffold} from 'amsterdam-react-final-form';
 import styled from 'styled-components';
 
-import $RefParser from "@apidevtools/json-schema-ref-parser";
 import {ThemeProvider, AccordionWrapper, Accordion, Spinner, Paragraph} from "@datapunt/asc-ui"
 
 import './App.css';
@@ -13,16 +12,7 @@ import {equalColumns} from "./utils/parseSchemaObjectToFormDefinition";
 import {getSchemaObjects} from "./utils/getSchemaObjects";
 import {columnPositioner} from "./utils/positioners";
 import {parseOpenApiSchema} from "./utils/parseOpenApiSchema";
-
-const fetchSchema = async (url:string) => {
-  const headers = new Headers();
-  headers.set('accept', 'application/json')
-
-  const result = await fetch(url, { headers });
-  const json = await result.json();
-
-  return $RefParser.dereference(json);
-};
+import {fetchSchema} from "./utils/fetchSchema";
 
 const Div = styled.div`  
   margin: 20px 20px;

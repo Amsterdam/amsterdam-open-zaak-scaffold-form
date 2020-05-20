@@ -29,6 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "publish": "rm -Rf ./dist && tsc ./src/package.ts --esModuleInterop --declaration --skipLibCheck --jsx react --outDir dist && cp ./package.json ./dist/package.json",
     "postbuild": "mv build docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -48,6 +49,7 @@
       "last 1 safari version"
     ]
   },
+  "main": "package.js",
   "devDependencies": {
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8"
