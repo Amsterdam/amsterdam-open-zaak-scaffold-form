@@ -1,11 +1,10 @@
 import { SchemaObject } from "openapi3-ts/src/model/OpenApi"
 import { ScaffoldFieldsType } from "amsterdam-react-final-form"
-import {arrayToObject} from "./arrayToObject";
-import {humanize, humanizeOptions} from "./humanize";
-import {horizontalPositioner} from "./positioners";
+import {arrayToObject} from "../utils/arrayToObject";
+import {humanize, humanizeOptions} from "../utils/humanize";
 import {parseOpenApiSchema} from "./parseOpenApiSchema";
 
-export const generateStandardFields = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
+export const generateStandardProps = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
   position: {},
   name: prefix+propertyName,
   hint: schemaObject.description,
@@ -46,14 +45,14 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
             type: "SelectField",
             props: {
               options: humanizeOptions(arrayToObject(property.enum)),
-              ...generateStandardFields(prefix, propertyName, property)
+              ...generateStandardProps(prefix, propertyName, property)
             }
           }
         } else {
           acc[key] = {
             type: "TextField",
             props: {
-              ...generateStandardFields(prefix, propertyName, property)
+              ...generateStandardProps(prefix, propertyName, property)
             }
           }
         }
@@ -62,7 +61,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
         acc[key] = {
           type: "Boolean",
           props: {
-            ...generateStandardFields(prefix, propertyName, property)
+            ...generateStandardProps(prefix, propertyName, property)
           }
         }
         break;
@@ -71,7 +70,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
         acc[key] = {
           type: "NumberField",
           props: {
-            ...generateStandardFields(prefix, propertyName, property)
+            ...generateStandardProps(prefix, propertyName, property)
           }
         }
         break;
@@ -81,7 +80,9 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
           ? property.items!
           : { properties: { "": property.items! } }
 
-        const scaffoldFields = parseOpenApiSchema(items, { "mobileS": horizontalPositioner } )
+        const scaffoldFields = parseOpenApiSchema(items)
+          .setHorizontal("mobileS") // Align fields horizontally by default
+          .getFields()
 
         acc[key] = {
           type: "ArrayField",
@@ -90,7 +91,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
             allowAdd: true,
             allowRemove: true,
             columns: equalColumns(Object.keys(scaffoldFields).length, true),
-            ...generateStandardFields(prefix, propertyName, property),
+            ...generateStandardProps(prefix, propertyName, property),
           }
         }
 
