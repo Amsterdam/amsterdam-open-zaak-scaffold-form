@@ -29,6 +29,9 @@
     "styled-components": "^5.1.0",
     "typescript": "^3.9.2"
   },
+  "peerDependencies": {
+    "amsterdam-react-final-form": "^0.1.23"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
