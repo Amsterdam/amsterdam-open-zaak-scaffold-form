@@ -1,8 +1,9 @@
 import { SchemaObject } from "openapi3-ts/src/model/OpenApi"
-import { ScaffoldFieldsType } from "amsterdam-react-final-form"
+import { ScaffoldAvailableFields } from "amsterdam-react-final-form"
 import {arrayToObject} from "../utils/arrayToObject";
 import {humanize, humanizeOptions} from "../utils/humanize";
 import {parseOpenApiSchema} from "./parseOpenApiSchema";
+import {FormPositionerProps} from "../grid/FormPositioner";
 
 export const generateStandardProps = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
   position: {},
@@ -22,9 +23,11 @@ export const equalColumns = (num:number, buttonGutter:boolean) => {
   return fractions.join(" ");
 }
 
-export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, prefix:string = "", indexOffset:number = 0):ScaffoldFieldsType => {
 
-  const parseField = (acc:ScaffoldFieldsType, key:string, propertyName:string, property:SchemaObject, index:number) => {
+
+export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, prefix:string = "", indexOffset:number = 0):FormPositionerProps => {
+
+  const parseField = (acc:FormPositionerProps, key:string, propertyName:string, property:SchemaObject, index:number) => {
 
     switch(property.type) {
       case "object":
@@ -113,7 +116,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
       if (property.allOf) {
         return property
           .allOf
-          .reduce((acc:ScaffoldFieldsType, property:SchemaObject) => parseField(acc, key, propertyName, property, index), acc)
+          .reduce((acc:FormPositionerProps, property:SchemaObject) => parseField(acc, key, propertyName, property, index), acc)
 
       } else if(property.oneOf) {
         console.warn("property.oneOf detected! We haven't implemented that yet!")
@@ -121,11 +124,11 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
         // TODO don't think this is the ideal situation.
         return property
           .oneOf
-          .reduce((acc:ScaffoldFieldsType, property:SchemaObject) => parseField(acc, key, propertyName, property, index), acc)
+          .reduce((acc:FormPositionerProps, property:SchemaObject) => parseField(acc, key, propertyName, property, index), acc)
 
       } else {
         return parseField(acc, key, propertyName, property, index)
       }
 
-    }, {} as ScaffoldFieldsType)
+    }, {} as FormPositionerProps)
 }
