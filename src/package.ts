@@ -2,19 +2,19 @@ import { fetchSchema } from "./openAPIParser/fetchSchema"
 import { getSchemaObjects } from "./openAPIParser/getSchemaObjects"
 import { parseOpenApiSchema } from "./openAPIParser/parseOpenApiSchema"
 
-import { FormPositioner, FormPositionerProps } from "./grid/FormPositioner"
+import { FormPositioner } from "./grid/FormPositioner"
 
 
 /**
  * NOTE: These functions are exported as a NPM module.
  */
 
+export type { FormPositionerProps } from "./grid/FormPositioner"
+
 export {
   fetchSchema,
   getSchemaObjects,
   parseOpenApiSchema,
-
-  FormPositionerProps,
   FormPositioner
 }
 
