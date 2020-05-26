@@ -1,5 +1,5 @@
 import produce from "immer"
-import {ScaffoldFieldsType} from "amsterdam-react-final-form"
+import { ScaffoldAvailableFields, ScaffoldFields } from "amsterdam-react-final-form"
 import _chunk from "lodash/chunk"
 
 import {Grid} from "./Grid";
@@ -7,10 +7,7 @@ import {assertGridIsValid} from "./assertGridIsValid";
 
 type BreakPoint = "mobileS" | "mobileM" | "mobileL" | "tabletS" | "tabletM" | "laptop" | "laptopM" | "laptopL" | "desktop" | "desktopL"
 
-// Makes the position property optional:
-export type FormPositionerProps = {
-  [K in keyof ScaffoldFieldsType]: Omit<ScaffoldFieldsType[K], "props"> & { props: Omit<ScaffoldFieldsType[K]["props"], "position"> & { position?: ScaffoldFieldsType[K]["props"]["position"] } }
-}
+export type FormPositionerProps = Record<string, ScaffoldAvailableFields>
 
 export class FormPositioner<T extends FormPositionerProps> {
 
@@ -87,8 +84,8 @@ export class FormPositioner<T extends FormPositionerProps> {
     )
   }
 
-  getFields = ():ScaffoldFieldsType => {
-    return this.fields as ScaffoldFieldsType
+  getFields = ():ScaffoldFields => {
+    return this.fields as ScaffoldFields
   }
 
 }

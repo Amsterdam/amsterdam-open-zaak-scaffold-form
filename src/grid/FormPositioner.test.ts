@@ -7,7 +7,7 @@ describe("FormPositioner", () => {
   const form:FormPositionerProps = {
     "field1": {
       type: "TextField",
-      props: { name: "field1" }
+      props: { name: "field1", autoFocus: true }
     },
     "field2": {
       type: "TextField",
