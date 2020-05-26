@@ -7,7 +7,12 @@ import {assertGridIsValid} from "./assertGridIsValid";
 
 type BreakPoint = "mobileS" | "mobileM" | "mobileL" | "tabletS" | "tabletM" | "laptop" | "laptopM" | "laptopL" | "desktop" | "desktopL"
 
-export class FormPositioner<T extends ScaffoldFieldsType> {
+// Makes the position property optional:
+export type FormPositionerProps = {
+  [K in keyof ScaffoldFieldsType]: Omit<ScaffoldFieldsType[K], "props"> & { props: Omit<ScaffoldFieldsType[K]["props"], "position"> & { position?: ScaffoldFieldsType[K]["props"]["position"] } }
+}
+
+export class FormPositioner<T extends FormPositionerProps> {
 
   constructor(protected fields:T) {}
 
@@ -62,6 +67,9 @@ export class FormPositioner<T extends ScaffoldFieldsType> {
     return new FormPositioner(fields)
   }
 
+  /**
+   * Aligns all input-fields vertically.
+   */
   setVertical(breakPoint:BreakPoint, numColumns:number = 1) {
     return this.setGrid(
       breakPoint,
@@ -69,6 +77,9 @@ export class FormPositioner<T extends ScaffoldFieldsType> {
     )
   }
 
+  /**
+   * Aligns all input-fields horizontally.
+   */
   setHorizontal(breakPoint:BreakPoint) {
     return this.setGrid(
       breakPoint,
@@ -76,8 +87,8 @@ export class FormPositioner<T extends ScaffoldFieldsType> {
     )
   }
 
-  getFields = ():T => {
-    return this.fields
+  getFields = ():ScaffoldFieldsType => {
+    return this.fields as ScaffoldFieldsType
   }
 
 }

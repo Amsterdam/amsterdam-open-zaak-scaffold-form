@@ -1,26 +1,25 @@
 // @ts-nocheck
 
-import {ScaffoldFieldsType} from "amsterdam-react-final-form";
-import {FormPositioner} from "./FormPositioner";
+import {FormPositioner, FormPositionerProps} from "./FormPositioner";
 
 describe("FormPositioner", () => {
 
-  const form:ScaffoldFieldsType = {
+  const form:FormPositionerProps = {
     "field1": {
       type: "TextField",
-      props: { name: "field1", position: {} }
+      props: { name: "field1" }
     },
     "field2": {
       type: "TextField",
-      props: { name: "field1", position: {} }
+      props: { name: "field1" }
     },
     "field3": {
       type: "TextField",
-      props: { name: "field1", position: {} }
+      props: { name: "field1" }
     },
     "field4": {
       type: "TextField",
-      props: { name: "field1", position: {} }
+      props: { name: "field1" }
     }
   }
 
