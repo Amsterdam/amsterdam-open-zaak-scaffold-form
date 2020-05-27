@@ -30,7 +30,7 @@
     "typescript": "^3.9.2"
   },
   "peerDependencies": {
-    "amsterdam-react-final-form": "^0.1.26"
+    "amsterdam-react-final-form": "^0.1.29"
   },
   "scripts": {
     "start": "react-scripts start",
