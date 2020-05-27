@@ -4,6 +4,7 @@ import {arrayToObject} from "../utils/arrayToObject";
 import {humanize, humanizeOptions} from "../utils/humanize";
 import {parseOpenApiSchema} from "./parseOpenApiSchema";
 import {FormPositionerProps} from "../grid/FormPositioner";
+import {equalColumns} from "../utils/equalColumns";
 
 export const generateStandardProps = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
   position: {},
@@ -14,15 +15,6 @@ export const generateStandardProps = (prefix: string, propertyName: string, sche
 
 export const generateFormDefinitionKey = (prefix:string, propertyName:string) =>
   (prefix + "" + propertyName).replace(/\./g, '_')
-
-export const equalColumns = (num:number, buttonGutter:boolean) => {
-  const fractions = [...Array(num)].map(_ => "1fr")
-  if (buttonGutter) {
-    fractions.push("auto")
-  }
-  return fractions.join(" ");
-}
-
 
 
 export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, prefix:string = "", indexOffset:number = 0):FormPositionerProps => {

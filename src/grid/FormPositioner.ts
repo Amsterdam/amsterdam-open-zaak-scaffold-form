@@ -1,9 +1,12 @@
+import React from "react"
 import produce from "immer"
-import { ScaffoldAvailableFields, ScaffoldFields } from "amsterdam-react-final-form"
+import { ScaffoldAvailableFields, ScaffoldFields, Scaffold } from "amsterdam-react-final-form"
 import _chunk from "lodash/chunk"
 
 import {Grid} from "./Grid";
 import {assertGridIsValid} from "./assertGridIsValid";
+import {Responsive} from "amsterdam-react-final-form/components/layout/responsiveProps";
+import {equalColumns} from "../utils/equalColumns";
 
 type BreakPoint = "mobileS" | "mobileM" | "mobileL" | "tabletS" | "tabletM" | "laptop" | "laptopM" | "laptopL" | "desktop" | "desktopL"
 
@@ -11,7 +14,7 @@ export type FormPositionerProps = Record<string, ScaffoldAvailableFields>
 
 export class FormPositioner<T extends FormPositionerProps> {
 
-  constructor(protected fields:T) {}
+  constructor(protected fields:T, protected columns:Responsive<string> = {}) {}
 
   /**
    * Position form elements responsively in a grid.
@@ -27,7 +30,15 @@ export class FormPositioner<T extends FormPositionerProps> {
    * .setVertical("mobileS", 1)                         // NOTE: align everything in a single column for mobileS until laptop
    *
    */
-  public setGrid(breakPoint:BreakPoint, arrayGrid:Array<Array<keyof T>>) {
+  public setGrid(breakPoint:BreakPoint, columns: string, arrayGrid:Array<Array<keyof T>>) {
+
+    if (typeof this.columns === "object") {
+      this.columns = {
+        ...this.columns,
+        [breakPoint]: columns
+      }
+    }
+
     // Wrap array grid in a Grid object.
     // It has some nice utility functions to work with.
     const grid = new Grid(arrayGrid)
@@ -61,15 +72,16 @@ export class FormPositioner<T extends FormPositionerProps> {
 
     // Return a new formPositioner.
     // It allows us to chain, while still being immutable.
-    return new FormPositioner(fields)
+    return new FormPositioner(fields, this.columns)
   }
 
   /**
    * Aligns all input-fields vertically.
    */
-  setVertical(breakPoint:BreakPoint, numColumns:number = 1) {
+  setVertical(breakPoint:BreakPoint, numColumns:number = 1, columns?:string) {
     return this.setGrid(
       breakPoint,
+      columns ?? equalColumns(numColumns, false),
       _chunk(Object.keys(this.fields), numColumns)
     )
   }
@@ -77,15 +89,28 @@ export class FormPositioner<T extends FormPositionerProps> {
   /**
    * Aligns all input-fields horizontally.
    */
-  setHorizontal(breakPoint:BreakPoint) {
+  setHorizontal(breakPoint:BreakPoint, columns?:string) {
+    const keys = Object.keys(this.fields)
     return this.setGrid(
       breakPoint,
-      [Object.keys(this.fields)]
+      columns ?? equalColumns(keys.length, false),
+      [keys]
     )
   }
 
-  getFields = ():ScaffoldFields => {
+  getColumns() {
+    return this.columns
+  }
+
+  getFields() {
     return this.fields as ScaffoldFields
+  }
+
+  getScaffoldProps():React.ComponentProps<typeof Scaffold> {
+    return {
+      fields: this.fields as ScaffoldFields,
+      columns: this.columns
+    }
   }
 
 }

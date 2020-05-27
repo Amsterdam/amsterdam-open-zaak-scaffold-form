@@ -32,7 +32,6 @@ describe("FormPositioner", () => {
         ])
         .getFields()
 
-
       expect(fields.field1.props.position.mobileS?.row).toEqual(0)
       expect(fields.field1.props.position.mobileS?.column).toEqual(0)
       expect(fields.field1.props.position.mobileS?.columnSpan).toEqual(2)
@@ -101,5 +100,23 @@ describe("FormPositioner", () => {
 
     expect(fields.field4.props.position.mobileS).toBeDefined()
     expect(fields.field4.props.position.laptop).toBeDefined()
+  })
+
+  it("should set columns when none are given", () => {
+    const columns = new FormPositioner(form)
+      .setVertical("mobileS")
+      .setHorizontal("laptop")
+      .getColumns()
+
+    expect(columns).toEqual({laptop: "1fr 1fr 1fr 1fr", mobileS: "1fr"})
+  })
+
+  it("should set columns when they are given", () => {
+    const columns = new FormPositioner(form)
+      .setVertical("mobileS", 1, "2fr")
+      .setHorizontal("laptop", "2fr 1fr")
+      .getColumns()
+
+    expect(columns).toEqual({laptop: "2fr 1fr", mobileS: "2fr"})
   })
 })

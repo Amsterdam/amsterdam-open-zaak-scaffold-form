@@ -8,10 +8,10 @@ import {ThemeProvider, AccordionWrapper, Accordion, Spinner, Paragraph} from "@d
 
 import './App.css'
 import {arrayToObject} from "./utils/arrayToObject"
-import {equalColumns} from "./openAPIParser/parseSchemaObjectToFormDefinition"
 import {getSchemaObjects} from "./openAPIParser/getSchemaObjects"
 import {parseOpenApiSchema} from "./openAPIParser/parseOpenApiSchema"
 import {fetchSchema} from "./openAPIParser/fetchSchema"
+import {equalColumns} from "./utils/equalColumns";
 
 const Div = styled.div`  
   margin: 20px 20px;
