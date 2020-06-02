@@ -1,10 +1,11 @@
 import { SchemaObject } from "openapi3-ts/src/model/OpenApi"
-import { ScaffoldAvailableFields } from "amsterdam-react-final-form"
 import {arrayToObject} from "../utils/arrayToObject";
 import {humanize, humanizeOptions} from "../utils/humanize";
 import {parseOpenApiSchema} from "./parseOpenApiSchema";
-import {FormPositionerProps} from "../grid/FormPositioner";
+
 import {equalColumns} from "../utils/equalColumns";
+import {FormPositionerFields} from "../grid/FormPositioner";
+import {ScaffoldAvailableFields} from "amsterdam-react-final-form";
 
 export const generateStandardProps = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
   position: {},
@@ -16,6 +17,7 @@ export const generateStandardProps = (prefix: string, propertyName: string, sche
 export const generateFormDefinitionKey = (prefix:string, propertyName:string) =>
   (prefix + "" + propertyName).replace(/\./g, '_')
 
+type FormPositionerProps = FormPositionerFields<ScaffoldAvailableFields>
 
 export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, prefix:string = "", indexOffset:number = 0):FormPositionerProps => {
 

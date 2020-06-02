@@ -1,10 +1,9 @@
-// @ts-nocheck
-
-import {FormPositioner, FormPositionerProps} from "./FormPositioner";
+import {FormPositioner, FormPositionerFields} from "./FormPositioner";
+import {ScaffoldAvailableFields} from "amsterdam-react-final-form";
 
 describe("FormPositioner", () => {
 
-  const form:FormPositionerProps = {
+  const form:FormPositionerFields<ScaffoldAvailableFields> = {
     "field1": {
       type: "TextField",
       props: { name: "field1", autoFocus: true }
@@ -25,7 +24,7 @@ describe("FormPositioner", () => {
 
   it("should set position based on a given grid", () => {
       const fields = new FormPositioner(form)
-        .setGrid('mobileS', [
+        .setGrid('mobileS', '1fr 1fr', [
           ["field1", "field1"],
           ["field2", "field4"],
           ["field3", "field4"]

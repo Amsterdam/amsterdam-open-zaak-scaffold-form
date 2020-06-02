@@ -1,20 +1,26 @@
-import React from "react"
 import produce from "immer"
-import { ScaffoldAvailableFields, ScaffoldFields, Scaffold } from "amsterdam-react-final-form"
+import {Dimensions, Responsive, BreakPoint} from "amsterdam-react-final-form"
 import _chunk from "lodash/chunk"
 
 import {Grid} from "./Grid";
 import {assertGridIsValid} from "./assertGridIsValid";
-import {Responsive} from "amsterdam-react-final-form/components/layout/responsiveProps";
 import {equalColumns} from "../utils/equalColumns";
+import {isResponsiveDimensions} from "../utils/isResponsive";
+import {OnlyResponsive} from "amsterdam-react-final-form/components/layout/responsiveProps";
 
-type BreakPoint = "mobileS" | "mobileM" | "mobileL" | "tabletS" | "tabletM" | "laptop" | "laptopM" | "laptopL" | "desktop" | "desktopL"
+// Fields given to the positioner should at least implement the following type:
+type OptionalPosition = { props: { position?: Responsive<Dimensions> } }
+// Transforms `OptionalPosition` to make `position` required
+type RequiredPosition<T extends OptionalPosition> = T & { props: T["props"] & { position: OnlyResponsive<Dimensions> } }
+// A record of fields:
+export type FormPositionerFields<T extends OptionalPosition> = Record<string, T>
 
-export type FormPositionerProps = Record<string, ScaffoldAvailableFields>
+export class FormPositioner<T extends OptionalPosition> {
 
-export class FormPositioner<T extends FormPositionerProps> {
-
-  constructor(protected fields:T, protected columns:Responsive<string> = {}) {}
+  constructor(
+    protected fields: FormPositionerFields<T>,
+    protected columns:Responsive<string> = {}
+  ) {}
 
   /**
    * Position form elements responsively in a grid.
@@ -30,49 +36,54 @@ export class FormPositioner<T extends FormPositionerProps> {
    * .setVertical("mobileS", 1)                         // NOTE: align everything in a single column for mobileS until laptop
    *
    */
-  public setGrid(breakPoint:BreakPoint, columns: string, arrayGrid:Array<Array<keyof T>>) {
+  public setGrid(breakPoint:BreakPoint, columns: string, arrayGrid:Array<Array<keyof FormPositionerFields<T>>>) {
 
+    // We save the columns setting in a different prop.
     if (typeof this.columns === "object") {
-      this.columns = {
-        ...this.columns,
-        [breakPoint]: columns
-      }
+      this.columns[breakPoint] = columns
     }
 
     // Wrap array grid in a Grid object.
     // It has some nice utility functions to work with.
     const grid = new Grid(arrayGrid)
 
-    // Make sure the give grid is a valid grid:
+    // Make sure the given grid is a valid grid:
     assertGridIsValid(Object.keys(this.fields), grid)
 
     // Update position attributes for the given fields:
     const fields = produce(this.fields, draftState => {
+      Object
+        .keys(this.fields)
+        .forEach(key => {
+          const fieldProps = draftState[key].props
+          const { topLeft, bottomRight } = grid.getCoordinatesForValue(key)
 
-      // Loop through each distinct field:
-      grid.getDistinctValues().forEach((value) => {
+          if (fieldProps.position === undefined) {
+            fieldProps.position = {}
+          }
 
-        const key = value as string
-        const { topLeft, bottomRight } = grid.getCoordinatesForValue(key)
+          if (!isResponsiveDimensions(fieldProps.position)) {
+            // When there already was a position set, but it wasn't marked responsive,
+            // We set that value to the lowest breakpoint:
+            fieldProps.position = { mobileS: fieldProps.position }
+          }
 
-        // Update position:
-        draftState[key].props.position = {
-          // Spread current position
-          ...draftState[key].props.position,
-          // Update position for given breakpoint:
-          [breakPoint]: {
+          // Set values to breakpoint.
+          fieldProps.position[breakPoint] = {
             column: topLeft.x,
             columnSpan: bottomRight.x - topLeft.x + 1,
             row: topLeft.y,
             rowSpan: bottomRight.y - topLeft.y + 1
           }
-        }
-      })
+        })
     })
 
     // Return a new formPositioner.
     // It allows us to chain, while still being immutable.
-    return new FormPositioner(fields, this.columns)
+    return new FormPositioner(
+      fields as FormPositionerFields<RequiredPosition<T>>,  // Fields now all have a position. Mark them as 'required'. Scaffold-components need them marked as required.
+      this.columns
+    )
   }
 
   /**
@@ -103,12 +114,12 @@ export class FormPositioner<T extends FormPositionerProps> {
   }
 
   getFields() {
-    return this.fields as ScaffoldFields
+    return this.fields
   }
 
-  getScaffoldProps():React.ComponentProps<typeof Scaffold> {
+  getScaffoldProps() {
     return {
-      fields: this.fields as ScaffoldFields,
+      fields: this.fields,
       columns: this.columns
     }
   }
