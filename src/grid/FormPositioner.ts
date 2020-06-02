@@ -81,7 +81,7 @@ export class FormPositioner<T extends OptionalPosition> {
     // Return a new formPositioner.
     // It allows us to chain, while still being immutable.
     return new FormPositioner(
-      fields as FormPositionerFields<RequiredPosition<T>>,  // Fields now all have a position. Mark them as 'required'. Scaffold-components need them marked as required.
+      fields as T extends RequiredPosition<T> ? FormPositionerFields<T> : FormPositionerFields<RequiredPosition<T>>,  // Fields now all have a position. Mark them as 'required'. Scaffold-components need them marked as required.
       this.columns
     )
   }
