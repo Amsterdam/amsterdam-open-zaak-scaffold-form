@@ -9,7 +9,7 @@ import { FormPositioner } from "./grid/FormPositioner"
  * NOTE: These functions are exported as a NPM module.
  */
 
-export type { FormPositionerProps } from "./grid/FormPositioner"
+export type { FormPositionerFields } from "./grid/FormPositioner"
 
 export {
   fetchSchema,

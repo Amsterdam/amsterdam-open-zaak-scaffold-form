@@ -19,7 +19,7 @@ export class FormPositioner<T extends OptionalPosition> {
 
   constructor(
     protected fields: FormPositionerFields<T>,
-    protected columns:Responsive<string> = {}
+    protected columns:Responsive<string> = {}       // -> ignore property, its used to pass along internally.
   ) {}
 
   /**
