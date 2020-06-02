@@ -3,7 +3,7 @@
   "version": "0.1.13",
   "homepage": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/",
   "dependencies": {
-    "@datapunt/asc-ui": "^0.19.2-alpha.46",
+    "@datapunt/asc-ui": "^0.20.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -11,7 +11,7 @@
     "@types/json-schema": "^7.0.4",
     "@types/node": "^12.0.0",
     "@types/styled-components": "^5.1.0",
-    "amsterdam-react-final-form": "^0.1.36",
+    "amsterdam-react-final-form": "^0.1.37",
     "api-spec-converter": "^2.11.0",
     "es6-promise": "^4.2.8",
     "final-form-arrays": "^3.0.2",
