@@ -2,16 +2,13 @@ import produce from "immer"
 import {Dimensions, Responsive, BreakPoint} from "amsterdam-react-final-form"
 import _chunk from "lodash/chunk"
 
-import {Grid} from "./Grid";
-import {assertGridIsValid} from "./assertGridIsValid";
-import {equalColumns} from "../utils/equalColumns";
-import {isResponsiveDimensions} from "../utils/isResponsive";
-import {OnlyResponsive} from "amsterdam-react-final-form/components/layout/responsiveProps";
+import {Grid} from "./Grid"
+import {assertGridIsValid} from "./assertGridIsValid"
+import {equalColumns} from "../utils/equalColumns"
+import {isResponsiveDimensions} from "../utils/isResponsive"
 
 // Fields given to the positioner should at least implement the following type:
 type OptionalPosition = { props: { position?: Responsive<Dimensions> } }
-// Transforms `OptionalPosition` to make `position` required
-type RequiredPosition<T extends OptionalPosition> = T & { props: T["props"] & { position: OnlyResponsive<Dimensions> } }
 // A record of fields:
 export type FormPositionerFields<T extends OptionalPosition> = Record<string, T>
 
@@ -81,7 +78,7 @@ export class FormPositioner<T extends OptionalPosition> {
     // Return a new formPositioner.
     // It allows us to chain, while still being immutable.
     return new FormPositioner(
-      fields as FormPositionerFields<RequiredPosition<T>>,  // Fields now all have a position. Mark them as 'required'. Scaffold-components need them marked as required.
+      fields,
       this.columns
     )
   }
