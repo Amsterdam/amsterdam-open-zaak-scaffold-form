@@ -6,6 +6,15 @@ import {parseOpenApiSchema} from "./parseOpenApiSchema";
 import {equalColumns} from "../utils/equalColumns";
 import {FormPositionerFields} from "../grid/FormPositioner";
 import {ScaffoldAvailableFields} from "amsterdam-react-final-form";
+import {ScaffoldSubmitButtonProps} from "amsterdam-react-final-form/components/final-form/Scaffold/ScaffoldField";
+
+const submit:ScaffoldSubmitButtonProps = {
+  type: "SubmitButton",
+  props: {
+    align: "right",
+    label: "Opslaan"
+  }
+}
 
 export const generateStandardProps = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
   position: {},
@@ -45,10 +54,18 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
               ...generateStandardProps(prefix, propertyName, property)
             }
           }
+        } else if(key === "omschrijving") {
+          acc[key] = {
+            type: "TextAreaField",
+            props: {
+              ...generateStandardProps(prefix, propertyName, property)
+            }
+          }
         } else {
           acc[key] = {
             type: "TextField",
             props: {
+              type: (property.format === "date") ? "date" : "text",
               ...generateStandardProps(prefix, propertyName, property)
             }
           }
@@ -102,7 +119,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
 
   const properties = schemaObject?.properties ?? {} as SchemaObject
 
-  return Object
+  const fields = Object
     .entries(properties)
     .reduce((acc, [propertyName, property], index) => {
       const key = generateFormDefinitionKey(prefix, propertyName)
@@ -125,4 +142,9 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
       }
 
     }, {} as FormPositionerProps)
+
+    // Lastly:
+    fields["submit"] = submit
+
+    return fields
 }
