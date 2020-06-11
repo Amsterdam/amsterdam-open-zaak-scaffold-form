@@ -16,11 +16,13 @@ const submit:ScaffoldSubmitButtonProps = {
   }
 }
 
-export const generateStandardProps = (prefix: string, propertyName: string, schemaObject:SchemaObject) => ({
+export const generateStandardProps = (prefix: string, propertyName: string, schemaObject:SchemaObject, required:string[]) => ({
   position: {},
   name: prefix+propertyName,
   hint: schemaObject.description,
-  label: schemaObject.title ?? humanize(propertyName)
+  label: schemaObject.title ?? humanize(propertyName),
+  disabled: schemaObject.readOnly ? true : undefined,
+  isRequired: required.includes(propertyName) ? true : undefined
 })
 
 export const generateFormDefinitionKey = (prefix:string, propertyName:string) =>
@@ -29,6 +31,8 @@ export const generateFormDefinitionKey = (prefix:string, propertyName:string) =>
 type FormPositionerProps = FormPositionerFields<ScaffoldAvailableFields>
 
 export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, prefix:string = "", indexOffset:number = 0):FormPositionerProps => {
+
+  const required = schemaObject?.required ?? []
 
   const parseField = (acc:FormPositionerProps, key:string, propertyName:string, property:SchemaObject, index:number) => {
 
@@ -51,14 +55,14 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
             type: "SelectField",
             props: {
               options: humanizeOptions(arrayToObject(property.enum)),
-              ...generateStandardProps(prefix, propertyName, property)
+              ...generateStandardProps(prefix, propertyName, property, required)
             }
           }
         } else if(key === "omschrijving") {
           acc[key] = {
             type: "TextAreaField",
             props: {
-              ...generateStandardProps(prefix, propertyName, property)
+              ...generateStandardProps(prefix, propertyName, property, required)
             }
           }
         } else {
@@ -66,7 +70,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
             type: "TextField",
             props: {
               type: (property.format === "date") ? "date" : "text",
-              ...generateStandardProps(prefix, propertyName, property)
+              ...generateStandardProps(prefix, propertyName, property, required)
             }
           }
         }
@@ -75,7 +79,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
         acc[key] = {
           type: "Boolean",
           props: {
-            ...generateStandardProps(prefix, propertyName, property)
+            ...generateStandardProps(prefix, propertyName, property, required)
           }
         }
         break;
@@ -84,7 +88,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
         acc[key] = {
           type: "NumberField",
           props: {
-            ...generateStandardProps(prefix, propertyName, property)
+            ...generateStandardProps(prefix, propertyName, property, required)
           }
         }
         break;
@@ -105,7 +109,7 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
             allowAdd: true,
             allowRemove: true,
             columns: equalColumns(Object.keys(scaffoldFields).length, true),
-            ...generateStandardProps(prefix, propertyName, property),
+            ...generateStandardProps(prefix, propertyName, property, required),
           }
         }
 
