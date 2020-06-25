@@ -1,13 +1,12 @@
-import fetch from "isomorphic-fetch"
+import axios from "axios"
 import $RefParser from "@apidevtools/json-schema-ref-parser";
 import {OpenAPIObject} from "openapi3-ts";
 
 export const fetchSchema = async (url:string) => {
-  const headers = new Headers();
-  headers.set('accept', 'application/json')
+  const headers = {'accept': 'application/json'}
 
-  const result = await fetch(url, { headers });
-  const json = await result.json();
+  const { data } = await axios.get(url, { headers });
 
-  return await $RefParser.dereference(json) as unknown as OpenAPIObject
+
+  return await $RefParser.dereference(data) as unknown as OpenAPIObject
 };
