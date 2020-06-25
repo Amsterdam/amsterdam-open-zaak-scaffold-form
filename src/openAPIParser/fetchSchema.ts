@@ -7,6 +7,5 @@ export const fetchSchema = async (url:string) => {
 
   const { data } = await axios.get(url, { headers, timeout: 30000 });
 
-
   return await $RefParser.dereference(data) as unknown as OpenAPIObject
 };

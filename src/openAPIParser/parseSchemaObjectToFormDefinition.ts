@@ -22,7 +22,7 @@ export const generateStandardProps = (prefix: string, propertyName: string, sche
   hint: schemaObject.description,
   label: schemaObject.title ?? humanize(propertyName),
   disabled: schemaObject.readOnly ? true : undefined,
-  isRequired: required.includes(propertyName) ? true : undefined
+  isRequired: required.includes(propertyName) && !schemaObject.readOnly ? true : undefined
 })
 
 export const generateFormDefinitionKey = (prefix:string, propertyName:string) =>
