@@ -1,6 +1,6 @@
 {
   "name": "amsterdam-scaffold-form",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "homepage": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/",
   "dependencies": {
     "@datapunt/asc-ui": "^0.20.0",
