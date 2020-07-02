@@ -58,13 +58,6 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
               ...generateStandardProps(prefix, propertyName, property, required)
             }
           }
-        } else if(key === "omschrijving") {
-          acc[key] = {
-            type: "TextAreaField",
-            props: {
-              ...generateStandardProps(prefix, propertyName, property, required)
-            }
-          }
         } else {
           acc[key] = {
             type: "TextField",
