@@ -30,7 +30,7 @@ const apiOptions = arrayToObject([
   "https://catalogi-api.vng.cloud/api/v1/schema/openapi.json",
   "https://besluiten-api.vng.cloud/api/v1/schema/openapi.json",
   "https://autorisaties-api.vng.cloud/api/v1/schema/openapi.json",
-  "http://localhost:9000/api/v1/schema/",
+  "http://localhost:8080/api/v1/schema/",
 ])
 
 function App() {

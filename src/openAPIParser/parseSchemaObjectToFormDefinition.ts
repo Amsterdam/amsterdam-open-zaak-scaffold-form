@@ -38,15 +38,24 @@ export const parseSchemaObjectToFormDefinition = (schemaObject:SchemaObject, pre
 
     switch(property.type) {
       case "object":
-        const object = parseSchemaObjectToFormDefinition(property, propertyName+ ".", index + indexOffset)
-        indexOffset += Object.keys(object).length
+        if (property.properties) {
+          const object = parseSchemaObjectToFormDefinition(property, propertyName+ ".", index + indexOffset)
+          indexOffset += Object.keys(object).length
 
-        Object
-          .entries(object)
-          .forEach(([key, val]) => {
-            acc[key] = val;
-          })
-
+          Object
+            .entries(object)
+            .forEach(([key, val]) => {
+              acc[key] = val;
+            })
+        } else {
+          // Fall back to text
+          acc[key] = {
+            type: "TextField",
+            props: {
+              ...generateStandardProps(prefix, propertyName, property, required)
+            }
+          }
+        }
 //        acc = { ...acc, ...object }
         break;
       case "string":
