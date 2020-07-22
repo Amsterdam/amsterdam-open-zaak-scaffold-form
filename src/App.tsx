@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Form} from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
-import {UnboundSelectField, Scaffold} from 'amsterdam-react-final-form'
+import {UnboundSelectField} from 'amsterdam-react-final-form'
 import styled from 'styled-components'
 
 import {ThemeProvider, AccordionWrapper, Accordion, Spinner, Paragraph} from "@datapunt/asc-ui"
@@ -11,7 +11,6 @@ import {arrayToObject} from "./utils/arrayToObject"
 import {getSchemaObjects} from "./openAPIParser/getSchemaObjects"
 import {parseOpenApiSchema} from "./openAPIParser/parseOpenApiSchema"
 import {fetchSchema} from "./openAPIParser/fetchSchema"
-import {equalColumns} from "./utils/equalColumns";
 
 const Div = styled.div`  
   margin: 20px 20px;
@@ -24,13 +23,11 @@ const StyledSpinner = styled(Spinner)`
 `
 
 const apiOptions = arrayToObject([
-  "https://acc.api.top.amsterdam.nl/api/v1/schema/",
   "https://zaken-api.vng.cloud/api/v1/schema/openapi.json",
   "https://documenten-api.vng.cloud/api/v1/schema/openapi.json",
   "https://catalogi-api.vng.cloud/api/v1/schema/openapi.json",
   "https://besluiten-api.vng.cloud/api/v1/schema/openapi.json",
   "https://autorisaties-api.vng.cloud/api/v1/schema/openapi.json",
-  "http://localhost:8080/api/v1/schema/",
 ])
 
 function App() {
