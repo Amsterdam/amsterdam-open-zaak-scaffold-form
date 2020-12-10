@@ -1,5 +1,5 @@
 import {FormPositioner, FormPositionerFields} from "./FormPositioner";
-import {ScaffoldAvailableFields} from "amsterdam-react-final-form";
+import {ScaffoldAvailableFields} from "@amsterdam/amsterdam-react-final-form";
 
 describe("FormPositioner", () => {
 
