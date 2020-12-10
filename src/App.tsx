@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Form} from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
-import {UnboundSelectField} from 'amsterdam-react-final-form'
+import {UnboundSelectField} from '@amsterdam/amsterdam-react-final-form'
 import styled from 'styled-components'
 
 import {ThemeProvider, AccordionWrapper, Accordion, Spinner, Paragraph} from "@datapunt/asc-ui"

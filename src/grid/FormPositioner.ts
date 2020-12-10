@@ -1,5 +1,5 @@
 import produce from "immer"
-import {Dimensions, Responsive, BreakPoint} from "amsterdam-react-final-form"
+import {Dimensions, Responsive, BreakPoint} from "@amsterdam/amsterdam-react-final-form"
 import _chunk from "lodash/chunk"
 
 import {Grid} from "./Grid"

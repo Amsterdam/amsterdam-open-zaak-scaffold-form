@@ -1,5 +1,5 @@
-import {OnlyResponsive} from "amsterdam-react-final-form/components/layout/responsiveProps";
-import {Dimensions, BreakPoint} from "amsterdam-react-final-form";
+import {OnlyResponsive} from "@amsterdam/amsterdam-react-final-form/components/layout/responsiveProps";
+import {Dimensions, BreakPoint} from "@amsterdam/amsterdam-react-final-form";
 
 const validKeys:BreakPoint[] = [
   "mobileS",

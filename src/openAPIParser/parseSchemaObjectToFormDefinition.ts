@@ -5,8 +5,8 @@ import {parseOpenApiSchema} from "./parseOpenApiSchema";
 
 import {equalColumns} from "../utils/equalColumns";
 import {FormPositionerFields} from "../grid/FormPositioner";
-import {ScaffoldAvailableFields} from "amsterdam-react-final-form";
-import {ScaffoldSubmitButtonProps} from "amsterdam-react-final-form/components/final-form/Scaffold/ScaffoldField";
+import {ScaffoldAvailableFields} from "@amsterdam/amsterdam-react-final-form";
+import {ScaffoldSubmitButtonProps} from "@amsterdam/amsterdam-react-final-form/components/final-form/Scaffold/ScaffoldField";
 
 const submit:ScaffoldSubmitButtonProps = {
   type: "SubmitButton",
