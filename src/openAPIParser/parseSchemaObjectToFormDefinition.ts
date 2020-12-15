@@ -1,12 +1,12 @@
 import { SchemaObject } from "openapi3-ts/src/model/OpenApi"
+import {ScaffoldAvailableFields} from "@amsterdam/amsterdam-react-final-form";
+import {ScaffoldSubmitButtonProps} from "@amsterdam/amsterdam-react-final-form/components/final-form/Scaffold/ScaffoldField";
+
 import {arrayToObject} from "../utils/arrayToObject";
 import {humanize, humanizeOptions} from "../utils/humanize";
 import {parseOpenApiSchema} from "./parseOpenApiSchema";
-
 import {equalColumns} from "../utils/equalColumns";
 import {FormPositionerFields} from "../grid/FormPositioner";
-import {ScaffoldAvailableFields} from "@amsterdam/amsterdam-react-final-form";
-import {ScaffoldSubmitButtonProps} from "@amsterdam/amsterdam-react-final-form/components/final-form/Scaffold/ScaffoldField";
 
 const submit:ScaffoldSubmitButtonProps = {
   type: "SubmitButton",
