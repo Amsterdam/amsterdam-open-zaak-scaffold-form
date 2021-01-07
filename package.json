@@ -3,7 +3,7 @@
   "version": "0.1.35",
   "homepage": "https://jeffrey-zutt.github.io/amsterdam-open-zaak-scaffold-form/",
   "dependencies": {
-    "@amsterdam/amsterdam-react-final-form": "^0.1.40",
+    "@amsterdam/amsterdam-react-final-form": "^0.1.104",
     "api-spec-converter": "^2.11.2",
     "axios": "^0.21.1",
     "es6-promise": "^4.2.8",
