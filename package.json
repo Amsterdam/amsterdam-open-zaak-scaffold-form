@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.2",
+    "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^7.1.2",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jest": "^26.0.23",
