@@ -5,7 +5,7 @@
   "dependencies": {
     "@amsterdam/amsterdam-react-final-form": "^0.1.124",
     "api-spec-converter": "^2.12.0",
-    "axios": "^0.21.1",
+    "axios": "^0.27.2",
     "es6-promise": "^4.2.8",
     "immer": "^9.0.3",
     "json-schema-ref-parser": "^9.0.9",
