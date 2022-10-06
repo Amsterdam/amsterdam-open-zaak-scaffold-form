@@ -18,7 +18,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
     "@types/isomorphic-fetch": "0.0.35",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^29.1.2",
     "@types/json-schema": "^7.0.7",
     "@types/lodash": "^4.14.170",
     "@types/node": "^15.12.2",
