@@ -20,7 +20,7 @@
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jest": "^26.0.23",
     "@types/json-schema": "^7.0.7",
-    "@types/lodash": "^4.14.170",
+    "@types/lodash": "^4.14.188",
     "@types/node": "^15.12.2",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",
