@@ -1,3 +1,5 @@
+ARCHIVED!!!
+
 ### Amsterdam Open-Zaak scaffold form
 
 Parses openAPI-spec files to scaffold-json.
